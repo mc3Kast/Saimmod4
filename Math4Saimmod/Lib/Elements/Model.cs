@@ -5,7 +5,6 @@ namespace Math4Saimmod.Lib.Elements
     {
         private Random _random = new Random();
         public Exit exit;
-        public Processor processor2;
         public Processor processor1;
         public Queue queue;
         public Generator generator;
@@ -13,17 +12,15 @@ namespace Math4Saimmod.Lib.Elements
         public Model(float p1, float p2)
         {
             exit = new Exit();
-            processor2 = new Processor(_random, p2, exit);
-            processor1 = new Processor(_random, p1, processor2);
-            queue = new Queue(processor1, 1);
-            generator = new Generator(queue);
+            processor1 = new Processor(_random, exit, p2*100);
+            queue = new Queue(processor1);
+            generator = new Generator(queue, _random,  p1*100);
         }
 
         public void Run(int n)
         {
             for (int i = 0; i < n; i++)
             {
-                processor2.Tick();
                 processor1.Tick();
                 queue.Tick();
                 generator.Tick();

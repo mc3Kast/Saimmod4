@@ -1,17 +1,20 @@
 ﻿
+using Math4Saimmod.Lib.LemRandom;
+
 namespace Math4Saimmod.Lib.Elements
 {
     public class Processor : IElement, IGet
     {
         private readonly Random _random;
-        private readonly float _processProbability;
         private readonly IGet _element;
+        private readonly float _intensity;
+        private float _progress = 0;
         private bool _busy = false;
 
-        public Processor(Random random, float p, IGet element)
+        public Processor(Random random, IGet element, float intensity)
         {
             _random = random;
-            _processProbability = 1 - p;
+            _intensity = intensity;
             _element = element;
         }
 
@@ -29,10 +32,12 @@ namespace Math4Saimmod.Lib.Elements
         {
             if (_busy)
             {
-                if (_random.NextSingle() < _processProbability)
+                _progress = Distribution.ExponentialDistribution(_random.NextSingle(), _intensity);
+                while (_progress >= 1)
                 {
                     _busy = false;
                     _element.Get();
+                    _progress--;
                 }
             }
         }

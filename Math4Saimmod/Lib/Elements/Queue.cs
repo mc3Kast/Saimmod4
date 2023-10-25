@@ -7,7 +7,7 @@ namespace Math4Saimmod.Lib.Elements
         private uint _requests = 0;
         public uint ticksInQueue = 0;
 
-        public Queue(IGet element, uint capacity)
+        public Queue(IGet element)
         {
             _element = element;
         }
