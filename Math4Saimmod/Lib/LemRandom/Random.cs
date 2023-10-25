@@ -1,7 +1,7 @@
 ﻿
-namespace Math4Saimmod.Lib.Random
+namespace Math4Saimmod.Lib.LemRandom
 {
-    public class Random
+    public class LemRandom
     {
         private readonly int a;
         private readonly int m;
@@ -9,15 +9,9 @@ namespace Math4Saimmod.Lib.Random
         public double[] random;
 
         public static int N = 150000;
-        public double ExpVal;
-        public double StaDev;
-        public double Disper;
-        public double K;
-        public int P;
-        public int Aperiod;
 
 
-        public Random(int a, int r, int m)
+        public LemRandom(int a, int r, int m)
         {
             this.a = a;
             this.r = r;

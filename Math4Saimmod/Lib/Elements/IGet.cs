@@ -1,5 +1,5 @@
 ﻿
-namespace Math3.Lib
+namespace Math4Saimmod.Lib.Elements
 {
     public interface IGet
     {

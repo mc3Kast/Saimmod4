@@ -1,5 +1,5 @@
 ﻿
-namespace Math4Saimmod.Lib.Random
+namespace Math4Saimmod.Lib.LemRandom
 {
     public static class Distribution
     {
