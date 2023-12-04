@@ -14,12 +14,18 @@ namespace Math4Saimmod
             int n = Int32.Parse(tbTicks.Text);
             double p1 = Double.Parse(tbP1.Text);
             double p2 = Double.Parse(tbP2.Text);
+            double p3 = p1 / p2;
+            double v = (double)1 / 3 + 1;
             Model model = new Model((float)p1, (float)p2);
             model.Run(n);
-            float loch = (float)model.queue.ticksInQueue / n;
-            float lc = loch + 0.8f;
-            float woch = loch * 10;
-            float wc = lc * 10;
+            //double loch = (p3 * p3 * v) / (2 * ( 1- p3));
+            //double lc = (p3 * p3 * v) / (2 * (1 - p3)) + p3;
+            //double woch = (p3 * p3 * v) / (2 * p1 * (1 - p3));
+            //double wc = (p3 * p3 * v) / (2 * p1 * (1 - p3)) + 1 / p2;
+            float loch = (float)model.processor1.queueTicks / n;
+            float lc = (float)(model.processor1.queueTicks + model.processor1._tickCount) / (float)n;
+            float woch = model.processor1._timeInQueue / n;
+            float wc = (model.processor1._time + model.processor1._timeInQueue) / n;
 
             lbLoch.Text = $"Loch: {loch}";
             lbLc.Text = $"Lc: {lc}";

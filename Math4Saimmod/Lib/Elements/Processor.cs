@@ -8,7 +8,8 @@ namespace Math4Saimmod.Lib.Elements
         private readonly Random _random;
         private readonly IGet _element;
         private readonly float _intensity;
-        private float _progress = 0;
+        public float _time = 0;
+        public uint _tickCount = 1;
         private bool _busy = false;
 
         public Processor(Random random, IGet element, float intensity)
@@ -25,21 +26,44 @@ namespace Math4Saimmod.Lib.Elements
                 _busy = true;
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         public void Tick()
         {
             if (_busy)
             {
-                _progress = Distribution.ExponentialDistribution(_random.NextSingle(), _intensity);
-                while (_progress >= 1)
+                float t = Distribution.ExponentialDistribution(_random.NextSingle(), _intensity);
+                _time += t;
+                if (_tickCount % 3 == 0)
                 {
-                    _busy = false;
                     _element.Get();
-                    _progress--;
-                }
+                    _busy = false;
+                }                
+                _tickCount++;
             }
         }
+
+        //lab 4
+        public void Tick(float f)
+        {
+            if (_busy)
+            {
+                float t = Distribution.ExponentialDistribution(f, _intensity);
+                _time += t;
+                if (_tickCount % 3 == 0)
+                {
+                    _element.Get();
+                    _busy = false;
+                }
+                _tickCount++;
+            }
+        }
+
+        public bool Busy { get { return _busy; } set { _busy = value; } }
+        public IGet NextElement { get { return _element; } }
     }
 }
